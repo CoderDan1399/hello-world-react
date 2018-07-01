@@ -6,13 +6,14 @@ const FlowBabelWebpackPlugin = require('flow-babel-webpack-plugin')
 module.exports = {
   entry: './src/index.jsx',
   mode: 'development',
-  // devtool: 'eval',
+  devtool: 'cheap-eval-source-map',
   module: {
     rules: [
       {
         test: /\.(js|jsx)$/,
         exclude: /(node_modules|bower_components)/,
-        loader: 'babel-loader',
+        include: path.resolve(__dirname, 'src'),
+        loader: require.resolve('babel-loader'),
         options: {
           cacheDirectory: true,
           plugins: ['react-hot-loader/babel'],
@@ -34,7 +35,7 @@ module.exports = {
     contentBase: path.join(__dirname, 'public/'),
     port: 3000,
     publicPath: 'http://localhost:3000/dist/',
-    hotOnly: true,
+    hot: true,
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
